@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const posts = [];
 
 const homeStartingContent = `Cupidatat dolor ex proident aliqua ex ad nulla velit quis labore laboris tempor. Excepteur sunt amet anim non sunt labore nisi adipisicing id tempor elit commodo. Ea id dolore voluptate reprehenderit irure fugiat elit adipisicing sit. Consequat commodo eiusmod aliqua est minim occaecat quis elit excepteur eiusmod et id.`;
 
@@ -14,6 +15,7 @@ app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
   res.render('home', { homeText: homeStartingContent });
+  console.log('This is posts Array--->', posts);
 });
 
 app.get('/about', (req, res) => {
@@ -34,7 +36,8 @@ app.post('/compose', (req, res) => {
     title: req.body.composeTitle,
     body: req.body.postBody
   };
-
+  posts.push(post);
+  res.redirect('/');
 });
 
 app.listen(3000, () => {
