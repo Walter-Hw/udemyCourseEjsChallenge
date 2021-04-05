@@ -2,7 +2,9 @@
 
     <h1>Hello! I'm going to do some stuff</h1>
     <p><%= homeText %></p>
-
-    <% posts.forEach((post) => { console.log(post.title); }); %>
+    <% posts.forEach((post) => { %>
+        <h1><%= post.title %></h1>
+        <p><%= post.body %></p>
+    <% }); %>
     
 <%- include('partials/footer') -%>
