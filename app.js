@@ -13,7 +13,19 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.render('home', { text1: homeStartingContent });
+  res.render('home', { homeText: homeStartingContent });
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', { aboutText: aboutContent});
+});
+
+app.get('/contact', (req, res) => {
+  res.render('contact', { contactText: contactContent });
+});
+
+app.get('/compose', (req, res) => {
+  res.render('compose');
 });
 
 app.listen(3000, () => {
