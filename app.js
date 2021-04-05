@@ -28,6 +28,10 @@ app.get('/compose', (req, res) => {
   res.render('compose');
 });
 
+app.post('/compose', (req, res) => {
+  console.log(req.body.compose);
+});
+
 app.listen(3000, () => {
   console.log('Listening port 3000 now...')
 });
