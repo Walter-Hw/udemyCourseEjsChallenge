@@ -29,7 +29,7 @@ app.get('/compose', (req, res) => {
 });
 
 app.post('/compose', (req, res) => {
-  console.log(req.body.compose);
+  console.log(req.body.composeTitle);
 });
 
 app.listen(3000, () => {
