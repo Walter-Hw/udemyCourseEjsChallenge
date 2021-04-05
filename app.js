@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const posts = [];
+let posts = [];
 
 const homeStartingContent = `Cupidatat dolor ex proident aliqua ex ad nulla velit quis labore laboris tempor. Excepteur sunt amet anim non sunt labore nisi adipisicing id tempor elit commodo. Ea id dolore voluptate reprehenderit irure fugiat elit adipisicing sit. Consequat commodo eiusmod aliqua est minim occaecat quis elit excepteur eiusmod et id.`;
 
@@ -14,8 +14,12 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.render('home', { homeText: homeStartingContent });
-  console.log('This is posts Array--->', posts);
+
+  res.render('home', {
+    homeText: homeStartingContent, 
+    posts: posts 
+  });
+  
 });
 
 app.get('/about', (req, res) => {
