@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const express = require('express');
 const app = express();
 
@@ -16,32 +17,40 @@ app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
 
-
   res.render('home', {
-    homeText: homeStartingContent, 
-    posts: posts 
+
+    homeText: homeStartingContent,
+    posts: posts
+
   });
   
 });
 
 app.get('/about', (req, res) => {
+
   res.render('about', { aboutText: aboutContent});
+
 });
 
 app.get('/contact', (req, res) => {
+
   res.render('contact', { contactText: contactContent });
+
 });
 
-app.get('/compose', (req, res) => {
-  res.render('compose');
-});
+app.get('/compose', (req, res) => { res.render('compose'); });
 
 app.get('/post/:postName', (req, res) => {
+
+  const pName = _.lowerCase(req.params.postName);
   
   posts.forEach((post) => {
-    if (post.title === req.params.postName) {
-      console.log('Matched!!!');
+
+    const pTitle = _.lowerCase(post.title);
+    if (pName === pTitle) {
+      res.render('post', { pTitle: post.title, pBody: post.body});
     }
+    
   });
 
 });
@@ -54,8 +63,7 @@ app.post('/compose', (req, res) => {
   };
   posts.push(post);
   res.redirect('/');
+
 });
 
-app.listen(3000, () => {
-  console.log('Listening port 3000 now...')
-});
+app.listen(3000, () => { console.log('Listening port 3000 now...')});
