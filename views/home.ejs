@@ -5,7 +5,8 @@
     <% posts.forEach((post) => { %>
         <h1><%= post.title %></h1>
         <p>
-            <%= post.body.substring(0, 100) + '...' %>
+            <% console.log('This is post.title', post.title) %>
+            <%= post.content.substring(0, 100) + '...' %>
             <a href="/post/<%= post.title %>">Read More</a>
         </p>
     <% }); %>
