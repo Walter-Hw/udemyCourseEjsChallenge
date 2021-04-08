@@ -70,8 +70,11 @@ app.post('/compose', (req, res) => {
     content: req.body.postBody
   })
   
-  post.save();
-  res.redirect('/');
+  post.save((err) => {
+    if (!err) {
+      res.redirect('/');
+    }
+  });
 });
 
 app.get('/about', (req, res) => {
