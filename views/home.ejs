@@ -5,9 +5,11 @@
     <% posts.forEach((post) => { %>
         <h1><%= post.title %></h1>
         <p>
-            <% console.log('This is post.title', post.title) %>
             <%= post.content.substring(0, 100) + '...' %>
             <a href="/post/<%= post.title %>">Read More</a>
+            <form action="/delete" method="POST">
+                <button name="button" type="submit" value="<%= post._id %>">Delete</button>
+            </form>
         </p>
     <% }); %>
     

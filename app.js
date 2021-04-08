@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { ID } = require('./config');
 const { KEY } = require('./config');
+const { result } = require('lodash');
 
 const app = express();
 
@@ -37,11 +38,7 @@ app.get('/', (req, res) => {
       homeText: homeStartingContent,
       posts: results
     });
-    console.log('Posts--->', results);
   });
-
-
-  
 });
 
 
@@ -52,19 +49,19 @@ app.get('/compose', (req, res) => {
 app.get('/post/:postName', (req, res) => {
   
   const pName = _.lowerCase(req.params.postName);
-  
-  posts.forEach((post) => {
-    
-    const pTitle = _.lowerCase(post.title);
-    if (pName === pTitle) {
-      res.render('post', { pTitle: post.title, pBody: post.body});
-    }
-    
+
+  Post.find({}, (err, results) => {
+    results.forEach((result) => {
+      const postTitle = _.lowerCase(result.title);
+      if (pName === postTitle) {
+        res.render('post', { pTitle: result.title, pBody: result.content });
+      }
+    });
   });
-  
 });
 
 app.post('/compose', (req, res) => {
+
   const post = new Post({
     title: req.body.composeTitle,
     content: req.body.postBody
@@ -83,6 +80,21 @@ app.get('/about', (req, res) => {
 
 app.get('/contact', (req, res) => {
   res.render('contact', { contactText: contactContent });
+});
+
+app.post('/delete', (req, res) => {
+
+  const deleteID = req.body.button;
+  Post.findByIdAndRemove(deleteID, (err,docs) => {
+    if (err) {
+      console.log('This is deleteID',deleteID);
+      console.log(err);
+    } else {
+      console.log('This is deleteID',deleteID);
+      console.log('Removed item:', docs);
+      res.redirect('/');
+    }
+  });
 });
 
 app.listen(process.env.PORT || 3000, () => { 
