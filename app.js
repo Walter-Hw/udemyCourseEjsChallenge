@@ -18,9 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
-mongoose.connect(`mongodb+srv://${ID}:${KEY}@cluster0.zvnci.mongodb.net/blogDB`, { 
-  useNewUrlParser:true,
-  useUnifiedTopology: true ,
+mongoose.connect(`mongodb+srv://${ID}:${KEY}@cluster0.zvnci.mongodb.net/blogDB`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
   useFindAndModify: false
 });
 
@@ -47,7 +47,7 @@ app.get('/compose', (req, res) => {
 });
 
 app.get('/post/:postName', (req, res) => {
-  
+
   const pName = _.lowerCase(req.params.postName);
 
   Post.find({}, (err, results) => {
@@ -66,7 +66,7 @@ app.post('/compose', (req, res) => {
     title: req.body.composeTitle,
     content: req.body.postBody
   })
-  
+
   post.save((err) => {
     if (!err) {
       res.redirect('/');
@@ -97,6 +97,6 @@ app.post('/delete', (req, res) => {
   });
 });
 
-app.listen(process.env.PORT || 3000, () => { 
+app.listen(process.env.PORT || 3000, () => {
   console.log('Server starting now...');
 });
